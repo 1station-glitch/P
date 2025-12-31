@@ -1,3 +1,2 @@
 python-telegram-bot
-pypdf
-reportlab
+pymupdf
