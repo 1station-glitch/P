@@ -1,32 +1,20 @@
-name: Run PDF White-Box Bot
+name: PDF Bot (On-Demand)
 
 on:
-  workflow_dispatch:         # يضيف لك زر تشغيل يدوي
-  schedule:
-    - cron: '0 */15 * * *'    # ⚠️ أهم سطر: يعيد التشغيل كل 5 ساعات تلقائياً
+  workflow_dispatch: # هذا يعني يشتغل بس لما تضغط الزر
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
-    timeout-minutes: 350     # يقتل العملية قبل الـ 6 ساعات (عشان يشتغل الجدول الزمني الجديد)
-
+    timeout-minutes: 15 # ⚠️ يشتغل 30 دقيقة بس ويطفي تلقائياً عشان يوفر رصيدك
+    
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Set up Python
-      uses: actions/setup-python@v4
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
       with:
         python-version: '3.10'
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-
-    - name: Run Bot Script
+    - run: pip install -r requirements.txt
+    - name: Run Bot
       env:
-        # 🔴 لازم تكون ضايف التوكين في إعدادات الأمان (Secrets)
         TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-      run: |
-        python bot.py
+      run: python bot.py
