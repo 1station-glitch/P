@@ -1,11 +1,9 @@
 name: Run PDF White-Box Bot
 
 on:
-  push:
-    branches: [ "main" ]     # يشتغل أول ما ترفع الكود
   workflow_dispatch:         # يضيف لك زر تشغيل يدوي
   schedule:
-    - cron: '0 */5 * * *'    # ⚠️ أهم سطر: يعيد التشغيل كل 5 ساعات تلقائياً
+    - cron: '0 */15 * * *'    # ⚠️ أهم سطر: يعيد التشغيل كل 5 ساعات تلقائياً
 
 jobs:
   run-bot:
